@@ -56,7 +56,7 @@ class Pokemon(PokemonBase):
         self.subir_nivel(10)
         print(f"El pokemon {self.nombre} ha entrenado... Ataque +10, Vida +10, Defensa +10, Nivel +10")
 
-        if self.nivel >= 100 and self.evolucion < 4: #Ha llegado al nivel para evolucionar
+        if self.nivel >= 100 and self.evolucion < 3: #Ha llegado al nivel para evolucionar
             self.nivel = 0
             self.evolucion += 1
             nombre_antiguo = self.nombre
@@ -93,6 +93,9 @@ class PokemonAgua(Pokemon):
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Rocía espuma con gran fuerza por su boca.",ataque,defensa,vida)
 
+    def obtener_nombre_evolucion(self):
+        return self.evoluciones[self.evolucion-1]
+
 class PokemonFuego(Pokemon):
     evoluciones = ["Charmander", "Charmeleon", "Charizard"]
     ataque_especial = "Lanzallamas"
@@ -101,6 +104,9 @@ class PokemonFuego(Pokemon):
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Prefiere claramente los lugares calientes.",ataque,defensa,vida)
 
+    def obtener_nombre_evolucion(self):
+        return self.evoluciones[self.evolucion-1]
+
 class PokemonElectrico(Pokemon):
     evoluciones = ["Pichu", "Pikachu", "Raichu"]
     ataque_especial = "Impactrueno"
@@ -108,9 +114,15 @@ class PokemonElectrico(Pokemon):
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Descarga energía de forma espontánea cuando se altera.",ataque,defensa,vida)
 
+    def obtener_nombre_evolucion(self):
+        return self.evoluciones[self.evolucion-1]
+
 class PokemonHierba(Pokemon):
     evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
     ataque_especial = "Hidrobomba"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",ataque,defensa,vida)
+
+    def obtener_nombre_evolucion(self):
+        return self.evoluciones[self.evolucion-1]
