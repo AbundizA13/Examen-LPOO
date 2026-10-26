@@ -88,12 +88,14 @@ class Pokemon(PokemonBase):
 
 class PokemonAgua(Pokemon):
     evoluciones = ["Squirtle", "Wartortle", "Blastoise"]
+    ataque_especial = "Latigazo"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Rocía espuma con gran fuerza por su boca.",ataque,defensa,vida)
 
 class PokemonFuego(Pokemon):
     evoluciones = ["Charmander", "Charmeleon", "Charizard"]
+    ataque_especial = "Lanzallamas"
 
 
     def __init__(self, ataque, defensa, vida):
@@ -101,12 +103,14 @@ class PokemonFuego(Pokemon):
 
 class PokemonElectrico(Pokemon):
     evoluciones = ["Pichu", "Pikachu", "Raichu"]
+    ataque_especial = "Impactrueno"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Descarga energía de forma espontánea cuando se altera.",ataque,defensa,vida)
 
 class PokemonHierba(Pokemon):
     evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
+    ataque_especial = "Hidrobomba"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",ataque,defensa,vida)
