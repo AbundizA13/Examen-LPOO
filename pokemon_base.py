@@ -1,23 +1,22 @@
 from abc import ABC, abstractmethod
 
-class Pokemon(ABC):
-    nombre = "Sin Pokemon"
-    descripcion = "No descripcion"
-    ataque : int
-    defensa : int
-    vida : int
-    nivel : int
-    evolucion : int
-    atrapado : bool
+class PokemonBase(ABC):
+    nombre : str
+    descripcion: str
+    ataque: int
+    defensa: int
+    vida: int
+    nivel: int
+    evolucion: int
+    atrapado: bool
 
     @abstractmethod
     def hablar(self):
         pass
 
-    def actualizar(self):
-        self.subir_ataque()
-        self.subir_vida()
-        self.subir_defensa()
+    @abstractmethod
+    def actualizar(self, boost_ataque, boost_vida, boost_defensa):
+        pass
 
     @abstractmethod
     def detalles_pokemon(self):
@@ -27,25 +26,66 @@ class Pokemon(ABC):
     def entrenar(self):
         pass
 
-    def subir_ataque(self):
-        self.ataque += 20
-
-    def subir_defensa(self):
-        self.defensa += 20
-
-    def subir_vida(self):
-        self.vida += 20
-
-    def __init__(self, nombre, descripcion, ataque, defensa, vida):
+    def __init__(self, nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado):
         self.nombre = nombre
         self.descripcion = descripcion
         self.ataque = ataque
         self.defensa = defensa
         self.vida = vida
-        self.nivel = 1
-        self.evolucion = 0
-        self.atrapado = False
+        self.nivel = nivel
+        self.evolucion = evolucion
+        self.atrapado = atrapado
 
+
+class Pokemon(PokemonBase):
+
+    def actualizar(self, boost_ataque, boost_vida, boost_defensa):
+        self.subir_ataque(boost_ataque)
+        self.subir_vida(boost_vida)
+        self.subir_defensa(boost_defensa)
+
+    def detalles_pokemon(self):
+        print(f"\"{self.nombre}\" {self.descripcion}.\n{self.vida} HP | Ataque: {self.ataque} | Defensa: {self.defensa} | Nivel: {self.nivel} | Evolucion: {self.evolucion} | Atrapado: {self.atrapado}.")
+
+    def entrenar(self):
+        self.subir_ataque(10)
+        self.subir_vida(10)
+        self.subir_defensa(10)
+        self.subir_nivel(10)
+        print(f"El pokemon {self.nombre} ha entrenado... Ataque +10, Vida +10, Defensa +10, Nivel +10")
+
+        if self.nivel >= 100 and self.evolucion < 4: #Ha llegado al nivel para evolucionar
+            self.nivel = 0
+            self.evolucion += 1
+            nombre_antiguo = self.nombre
+            self.nombre = self.obtener_nombre_evolucion()
+            print(f"El pokemon {nombre_antiguo} a evolucionado a {self.nombre}.")
+
+    def obtener_nombre_evolucion(self):
+        return self.nombre
+
+    def hablar(self):
+        print(f"[Un pokemon está hablando] {self.nombre}... {self.nombre}!")
+
+
+    def subir_ataque(self, incremento):
+        self.ataque += incremento
+
+    def subir_defensa(self, incremento):
+        self.defensa += incremento
+
+    def subir_vida(self, incremento):
+        self.vida += incremento
+
+    def subir_nivel(self, incremento):
+        self.nivel += incremento
+
+    #Constructor para Pókemon por defecto, su nivel y evolución empiezan en el mínimo | No atrapado por defecto
+    def __init__(self, nombre, descripcion, ataque, defensa, vida , nivel = 1, evolucion = 1, atrapado = False):
+        super().__init__(nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado)
+
+
+"""
 class PokemonEspecializado(Pokemon):
     ataque_especial = ""
 
@@ -60,4 +100,15 @@ class PokemonEspecializado(Pokemon):
         pass
 
     def entrenar(self):
-        pass
+        pass"""
+class PokemonAgua:
+    pass
+
+class PokemonFuego:
+    pass
+
+class PokemonElectrico:
+    pass
+
+class PokemonHierba:
+    pass
