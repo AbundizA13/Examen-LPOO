@@ -89,24 +89,24 @@ class Pokemon(PokemonBase):
 class PokemonAgua(Pokemon):
     evoluciones = ["Squirtle", "Wartortle", "Blastoise"]
 
-    def __init__(self):
-        super().__init__(self.evoluciones[0], "Rocía espuma con gran fuerza por su boca.",48,65,44)
+    def __init__(self, ataque, defensa, vida):
+        super().__init__(self.evoluciones[0], "Rocía espuma con gran fuerza por su boca.",ataque,defensa,vida)
 
 class PokemonFuego(Pokemon):
     evoluciones = ["Charmander", "Charmeleon", "Charizard"]
 
 
-    def __init__(self):
-        super().__init__(self.evoluciones[0], "Prefiere claramente los lugares calientes.",52,43,39)
+    def __init__(self, ataque, defensa, vida):
+        super().__init__(self.evoluciones[0], "Prefiere claramente los lugares calientes.",ataque,defensa,vida)
 
 class PokemonElectrico(Pokemon):
     evoluciones = ["Pichu", "Pikachu", "Raichu"]
 
-    def __init__(self):
-        super().__init__(self.evoluciones[0], "Descarga energía de forma espontánea cuando se altera.",40,15,20)
+    def __init__(self, ataque, defensa, vida):
+        super().__init__(self.evoluciones[0], "Descarga energía de forma espontánea cuando se altera.",ataque,defensa,vida)
 
 class PokemonHierba(Pokemon):
     evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
 
-    def __init__(self):
-        super().__init__(self.evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",49,49,45)
+    def __init__(self, ataque, defensa, vida):
+        super().__init__(self.evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",ataque,defensa,vida)
