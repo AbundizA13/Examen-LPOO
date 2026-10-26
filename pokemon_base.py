@@ -22,6 +22,7 @@ class PokemonBase(ABC):
     def detalles_pokemon(self):
         pass
 
+
     @abstractmethod
     def entrenar(self):
         pass
@@ -46,6 +47,7 @@ class Pokemon(PokemonBase):
 
     def detalles_pokemon(self):
         print(f"\"{self.nombre}\" {self.descripcion}.\n{self.vida} HP | Ataque: {self.ataque} | Defensa: {self.defensa} | Nivel: {self.nivel} | Evolucion: {self.evolucion} | Atrapado: {self.atrapado}.")
+
 
     def entrenar(self):
         self.subir_ataque(10)
@@ -84,31 +86,27 @@ class Pokemon(PokemonBase):
     def __init__(self, nombre, descripcion, ataque, defensa, vida , nivel = 1, evolucion = 1, atrapado = False):
         super().__init__(nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado)
 
+class PokemonAgua(Pokemon):
+    evoluciones = ["Squirtle", "Wartortle", "Blastoise"]
 
-"""
-class PokemonEspecializado(Pokemon):
-    ataque_especial = ""
+    def __init__(self):
+        super().__init__(self.evoluciones[0], "Rocía espuma con gran fuerza por su boca.",48,65,44)
 
-    def __init__(self, nombre, descripcion, ataque, defensa, vida, ataque_especial):
-        super().__init__(nombre, descripcion, ataque, defensa, vida)
-        self.ataque_especial = ataque_especial
-    
-    def hablar(self):
-        print(f"{self.nombre} ha hablado.")
+class PokemonFuego(Pokemon):
+    evoluciones = ["Charmander", "Charmeleon", "Charizard"]
 
-    def detalles_pokemon(self):
-        pass
 
-    def entrenar(self):
-        pass"""
-class PokemonAgua:
-    pass
+    def __init__(self):
+        super().__init__(self.evoluciones[0], "Prefiere claramente los lugares calientes.",52,43,39)
 
-class PokemonFuego:
-    pass
+class PokemonElectrico(Pokemon):
+    evoluciones = ["Pichu", "Pikachu", "Raichu"]
 
-class PokemonElectrico:
-    pass
+    def __init__(self):
+        super().__init__(self.evoluciones[0], "Descarga energía de forma espontánea cuando se altera.",40,15,20)
 
-class PokemonHierba:
-    pass
+class PokemonHierba(Pokemon):
+    evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
+
+    def __init__(self):
+        super().__init__(self.evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",49,49,45)
