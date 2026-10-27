@@ -168,16 +168,17 @@ while True:
         pass
     elif opc==5:
         print("\n-------Creación--------")
-        print("1. Fuego")
-        print("2. Hierba")
-        print("3. Agua")
-        print("4. Eléctrico")
-        print("0. Cancelar")
+        print("1. Fuego.")
+        print("2. Hierba.")
+        print("3. Agua.")
+        print("4. Eléctrico.")
+        print("5. Ver enemigos almacenados.")
+        print("0. Cancelar.")
         print("---------------------")
         tipo= int(input("Ingrese el tipo del Pokémon: "))
         if tipo==0:
             continue
-        if tipo < 1 or tipo > 4:
+        if tipo < 1 or tipo > 5:
             print("Ingrese una opción correcta")
             continue
         ataque= int(input("Ingresa el ataque (1-1000): "))
@@ -190,8 +191,15 @@ while True:
             enemigo = construir_pokemon_hierba(vida=vida, ataque=ataque, defensa=defensa)
         elif tipo == 3:
             enemigo = construir_pokemon_agua(vida=vida, ataque=ataque, defensa=defensa)
-        else:
+        elif tipo == 4:
             enemigo = construir_pokemon_electrico(vida=vida, ataque=ataque, defensa=defensa)
+        else:
+            print("Enemigos almacenados:\n+---------------+")
+            for enemigo in enemigos:
+                enemigo.detalles_pokemon()
+                print("+---------------+")
+            continue
+
         enemigos.append(enemigo)
         print(f"\n{enemigo.nombre} se agregó a la lista de enemigos")
         enemigo.detalles_pokemon()
