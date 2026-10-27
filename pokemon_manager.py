@@ -35,3 +35,37 @@ def crearPokemonInicial(tipo):
         return construir_pokemon_agua()
     else:
         return construir_pokemon_electrico()
+
+
+def ataques_al_enemigo(pokemon, enemigo):
+    danio = pokemon.ataque
+    if danio > pokemon.ataque:
+        sobrante = danio - enemigo.defensa
+        enemigo.vida -= sobrante
+    else:
+        enemigo.defensa -= danio
+
+        # El enemigo te ataca
+        accion_enemigo = choice([1, 2, 3])
+        pokemon_manager.turno_enemigo(accion_enemigo, pokemon)
+
+
+def turno_enemigo(enemigo, pokemon):
+    accion = randint(1, 3)
+
+    if accion == 1:
+        print(f"{enemigo.nombre} usó ataque normal!")
+        dano = enemigo.ataque
+    elif accion == 2:
+        print(f"{enemigo.nombre} usó {enemigo.ataque_especial}!")
+        dano = enemigo.ataque * 1.5
+    else:
+        print(f"{enemigo.nombre} pasó su turno.")
+        return
+
+    if dano > pokemon.defensa:
+        sobrante = dano - pokemon.defensa
+        pokemon.defensa = 0
+        pokemon.vida -= sobrante
+    else:
+        pokemon.defensa -= dano
