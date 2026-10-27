@@ -48,7 +48,6 @@ class Pokemon(PokemonBase):
     def detalles_pokemon(self):
         print(f"\"{self.nombre}\" {self.descripcion}.\n{self.vida} HP | Ataque: {self.ataque} | Defensa: {self.defensa} | Nivel: {self.nivel} | Evolucion: {self.evolucion} | Atrapado: {self.atrapado}.")
 
-
     def entrenar(self):
         self.subir_ataque(10)
         self.subir_vida(10)
