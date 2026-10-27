@@ -1,5 +1,4 @@
 from random import randint
-from random import choice
 from pokemon_manager import *
 
 print("-------Pookédex--------")
@@ -33,8 +32,7 @@ print(f"\nExcelente {nombre}. Tu acompañante es {pokemon.nombre}")
 pokemon.detalles_pokemon()
 print("Diviértete en esta aventura\n")
 
-enemigos = []
-pokemones_atrapados = []
+enemigos=[]
 
 while True:
     print("\n-------Menú--------")
@@ -155,34 +153,17 @@ while True:
                 break
             else:
                 print("Ingrese una opción correcta")
-
-# Falta terminar la opcion 3 y definir que se gane al enemigo en la opcion 4
     elif opc==3:
         while True:
-            enemigo = choice(enemigos)
             print("\n-------Combate--------")
             print("1. Pasar Turno")
             print("2. Ataque Normal")
             print("3. Ataque Especial")
             print("4. Huir")
             op= int(input("Ingrese una opción: "))
-
-            if op==1:
-                ataques_al_enemigo(pokemon, enemigo)
-                
-            elif op==2:
-                ataques_al_enemigo(pokemon, enemigo)    
-
-            elif op==3:
-                ataques_al_enemigo(pokemon, enemigo)
-                
-            elif op==4:
+            if op==4:
                 break
     elif opc==4:
-        print("------- Pokemones Atrapados -------")
-        for pokemon in pokemones_atrapados:
-            print(pokemon)
-
         #FALTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         pass
     elif opc==5:
