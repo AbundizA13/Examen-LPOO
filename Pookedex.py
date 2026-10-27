@@ -154,15 +154,13 @@ while True:
             else:
                 print("Ingrese una opción correcta")
     elif opc==3:
-        while True:
-            print("\n-------Combate--------")
-            print("1. Pasar Turno")
-            print("2. Ataque Normal")
-            print("3. Ataque Especial")
-            print("4. Huir")
-            op= int(input("Ingrese una opción: "))
-            if op==4:
-                break
+        tamano_enemigos = len(enemigos)
+        if tamano_enemigos == 0:
+            print("Debes crear enemigos antes de combatir.")
+            continue
+        enemigo_random = randint(0,tamano_enemigos-1)
+        enemigo_actual = enemigos[enemigo_random]
+        combate = Combate(pokemon, enemigo_actual)
     elif opc==4:
         #FALTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         pass
@@ -181,6 +179,13 @@ while True:
         if tipo < 1 or tipo > 5:
             print("Ingrese una opción correcta")
             continue
+
+        if tipo == 5:
+            print("Enemigos almacenados:\n+---------------+")
+            for enemigo in enemigos:
+                enemigo.detalles_pokemon()
+                print("+---------------+")
+            continue
         ataque= int(input("Ingresa el ataque (1-1000): "))
         defensa= int(input("Ingresa la defensa (1-1000): "))
         vida= int(input("Ingresa la vida (1-1000): "))
@@ -191,14 +196,8 @@ while True:
             enemigo = construir_pokemon_hierba(vida=vida, ataque=ataque, defensa=defensa)
         elif tipo == 3:
             enemigo = construir_pokemon_agua(vida=vida, ataque=ataque, defensa=defensa)
-        elif tipo == 4:
-            enemigo = construir_pokemon_electrico(vida=vida, ataque=ataque, defensa=defensa)
         else:
-            print("Enemigos almacenados:\n+---------------+")
-            for enemigo in enemigos:
-                enemigo.detalles_pokemon()
-                print("+---------------+")
-            continue
+            enemigo = construir_pokemon_electrico(vida=vida, ataque=ataque, defensa=defensa)
 
         enemigos.append(enemigo)
         print(f"\n{enemigo.nombre} se agregó a la lista de enemigos")
@@ -208,3 +207,4 @@ while True:
         break
     else:
         print("Ingrese una opción correcta")
+

@@ -68,6 +68,13 @@ class Pokemon(PokemonBase):
     def hablar(self):
         print(f"[Un pokemon está hablando] {self.nombre}... {self.nombre}!")
 
+    def sigue_vivo(self):
+        if self.vida <= 0:
+            return False
+        return True
+
+    def eliminar_defensa(self):
+        self.defensa = 0
 
     def subir_ataque(self, incremento):
         self.ataque += incremento
