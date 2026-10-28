@@ -269,7 +269,7 @@ def Entrenamiento_Personalizado(pokemon):
             Limpiar()
 
         elif opcion == 3:
-            Limpiar(0)
+            Limpiar()
             print("\n-------Incrementar Vida--------")
             incremento= int(input("Ingrese el incremento de la vida: "))
             pokemon.subir_vida(incremento)
