@@ -28,13 +28,15 @@ class Combate:
                 return
             if self.enemigo.sigue_vivo():
                 self.turno_enemigo()
+        
         if self.imprimir_estado_combate():
             self.procesar_final_combate()
             self.aliado.solucionar_evolucion()
             return True
 
+        self.aliado.subir_vida(100)
         return False
-
+        
     def procesar_final_combate(self):
         niveles_agregados = randint(5, 15)
         self.aliado.subir_nivel(niveles_agregados)
@@ -91,4 +93,5 @@ class Combate:
             print("Has ganado el combate :D")
             print(f"Has capturado al Pokemon \"{self.enemigo.get_nombre()}\".")
             return True
+        print("Perdiste")
         return False

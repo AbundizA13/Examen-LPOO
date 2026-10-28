@@ -2,11 +2,20 @@ from combate import Combate
 from pokemon_manager import *
 from copy import deepcopy
 
+import os
+import time
+
+def Limpiar(tiempo):
+    time.sleep(tiempo)
+    os.system("cls")
+
 # Crea el objeto pokemon
 def Elegir_Pokemon():
     print("-------Pookédex--------")
     print("Bienvenido a tu aventura Pokemon viendo temas de POO")
     nombre = input("Antes de empezar, ¿cuál es tu nombre?: ")
+
+    Limpiar(0)
 
     print(f"\nMuy bien, {nombre}, aún no tienes ningún Pokémon.")
     print("Debes elegir uno de los 4 que tenemos para ti:")
@@ -35,6 +44,7 @@ def Elegir_Pokemon():
     pokemon.detalles_pokemon()
     print("Diviértete en esta aventura\n")
     enter_para_continuar()
+    Limpiar(1.5)
 
     return pokemon
 
@@ -48,6 +58,7 @@ def opcion_1(pokemon):
     print("\n-------Detalles--------")
     pokemon.detalles_pokemon()
     enter_para_continuar()
+    Limpiar(1)
 
 # Opcion 1 -> 2 - Interacciones de pokemon
 def opcion_2(pokemon:Pokemon):
@@ -63,21 +74,31 @@ def opcion_2(pokemon:Pokemon):
         if opcion == 1:
             print(f"Has jugado con {pokemon.get_nombre()}")
             enter_para_continuar()
-            pass
+            Limpiar(0)
+
         elif opcion == 2:
             pokemon.hablar()
             enter_para_continuar()
+            Limpiar(0)
+
         elif opcion == 3:
             niveles_agregados = randint(2,4)
             print(f"Has alimentado a {pokemon.get_nombre()}.\nSu nivel ha incrementado +{niveles_agregados}")
             pokemon.subir_nivel(niveles_agregados)
             enter_para_continuar()
+            Limpiar(0)
+
         elif opcion == 4:
             opcion_entrenamiento(pokemon)
+            Limpiar(1.5)
         elif opcion == 0:
+            print("Saliendo...")
+            Limpiar(3)
             break
         else:
-            print("Ingrese una opción correcta")
+            print("Ingrese una opción correcta...")
+            enter_para_continuar()
+            Limpiar(3)
 
 # Opcion 1 -> 3 - Combate
 def opcion_3(pokemon, enemigos, capturados):
@@ -85,6 +106,7 @@ def opcion_3(pokemon, enemigos, capturados):
     if tamano_enemigos == 0:
         print("Debes crear enemigos antes de combatir.")
         enter_para_continuar()
+        Limpiar(1.5)
         return
     random = randint(0,tamano_enemigos-1)
     enemigo_actual = enemigos[random]
@@ -95,6 +117,7 @@ def opcion_3(pokemon, enemigos, capturados):
         enemigo_actual.set_atrapado()
         capturados.append(enemigo_actual)
     enter_para_continuar()
+    Limpiar(3)
 
 
 
@@ -104,6 +127,7 @@ def opcion_4(pokemon, capturados):
     for capturado in capturados:
         capturado.detalles_pokemon()
     enter_para_continuar()
+    Limpiar(3)
 
 # Opcion 1 -> 5 - Crear Pokemon enemigo 
 def opcion_5(pokemon, enemigos):
@@ -118,6 +142,7 @@ def opcion_5(pokemon, enemigos):
     tipo = int(input("Ingrese el tipo del Pokémon: "))
     
     if tipo == 0:
+        print("Cancelando...")
         return 
 
     if tipo < 1 or tipo > 5:
@@ -142,12 +167,14 @@ def opcion_5(pokemon, enemigos):
             enemigo.detalles_pokemon()
             print("+---------------+")
             enter_para_continuar()
+            Limpiar(3)
         return
 
     enemigos.append(enemigo)
     print(f"\n{enemigo.get_nombre()} se agregó a la lista de enemigos")
     enemigo.detalles_pokemon()
     enter_para_continuar()
+    Limpiar(3)
 
 # Opcion de entrenamiento
 def opcion_entrenamiento(pokemon):
@@ -163,16 +190,21 @@ def opcion_entrenamiento(pokemon):
         
         if opcion == 1:
             Entrenamiento_normal(pokemon)
+            Limpiar(5)
         elif opcion == 2:
             Entrenamiento_individual(pokemon)
+            Limpiar(5)
         elif opcion == 3:
             Entrenamiento_Intensivo(pokemon)
+            Limpiar(5)
         elif opcion == 4:
             Entrenamiento_Personalizado(pokemon)
+            Limpiar(5)
         elif opcion == 0:
             break
         else:
             print("Ingrese una opción correcta")
+            Limpiar(1)
 
 # CLASE ENTRENAMIENTO
 # Opciones de entrenamiento
@@ -214,7 +246,8 @@ def Entrenamiento_individual(pokemon):
 # Entrenamiento Intensivo
 def Entrenamiento_Intensivo(pokemon):
     pokemon.actualizar(20, 20, 20)
-    print(f"El pokemon {pokemon.get_nombre()} ha entrenado... Ataque +20, Vida +20, Defensa +20")
+    pokemon.subir_nivel(20)
+    print(f"El pokemon {pokemon.get_nombre()} ha entrenado... Ataque +20, Vida +20, Defensa +20, Nivel +20")
     pokemon.detalles_pokemon()
 
 # Entrenamiento Personalizado
@@ -229,24 +262,32 @@ def Entrenamiento_Personalizado(pokemon):
         opcion= int(input("Ingrese una opción: "))
         
         if opcion == 1:
+            Limpiar(3)
             print("\n-------Incrementar Ataque--------")
             incremen= int(input("Ingrese el incremento del ataque: "))
             pokemon.subir_ataque(incremen)
             print(f"{pokemon.get_nombre()} Incrementó su ataque +{incremen}")
             pokemon.detalles_pokemon()
+            Limpiar(3)
         
         elif opcion == 2:
+            Limpiar(3)
             print("\n-------Incrementar Defensa--------")
             increment= int(input("Ingrese el incremento de la defensa: "))
             pokemon.subir_defensa(increment)
             print(f"{pokemon.get_nombre()} Incrementó su defensa +{increment}")
             pokemon.detalles_pokemon()
+            Limpiar(3)
+
         elif opcion == 3:
+            Limpiar(3)
             print("\n-------Incrementar Vida--------")
             incremento= int(input("Ingrese el incremento de la vida: "))
             pokemon.subir_vida(incremento)
             print(f"{pokemon.get_nombre()} Incrementó su vida +{incremento}")
             pokemon.detalles_pokemon()
+            Limpiar(3)
+
         elif opcion == 0:
             break
         else:
@@ -267,19 +308,25 @@ def Main(pokemon, enemigos, capturados):
         opcion = int(input("Ingrese una opción: "))
 
         if opcion == 1:
+            Limpiar(0)
             opcion_1(pokemon)
         elif opcion == 2:
+            Limpiar(0)
             opcion_2(pokemon)
         elif opcion == 3:
+            Limpiar(0)
             opcion_3(pokemon, enemigos, capturados)
         elif opcion == 4:
+            Limpiar(0)
             opcion_4(pokemon, capturados)
         elif opcion == 5:
+            Limpiar(0)
             opcion_5(pokemon, enemigos)
         elif opcion == 0:
             break
         else:
             print("Opcion no valida...")
+            Limpiar(3)
 
 def enter_para_continuar():
     input("\nENTER para continuar.\n")
