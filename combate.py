@@ -3,7 +3,7 @@ Vamos a separar los menús del main a un menú compacto de combate
 
 Los demás menús seguirán viviendo en Pookedex.py
 """
-from Pokedex.pokemon_base import Pokemon
+from pokemon_base import Pokemon
 from random import randint
 
 
@@ -29,9 +29,9 @@ class Combate:
             if self.enemigo.sigue_vivo():
                 self.turno_enemigo()
         if self.imprimir_estado_combate():
-            return True
             self.procesar_final_combate()
             self.aliado.solucionar_evolucion()
+            return True
 
         return False
 

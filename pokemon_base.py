@@ -46,6 +46,8 @@ class PokemonBase(ABC):
     def detalles_pokemon(self):
         pass
 
+    def set_atrapado(self):
+        self._atrapado = True
 
     @abstractmethod
     def entrenar(self):
@@ -116,12 +118,12 @@ class Pokemon(PokemonBase):
 
     def subir_vida(self, incremento):
         self._vida += incremento
-        if self.vida > 1000:
+        if self._vida > 1000:
             self._vida = 1000
 
     def reducir_vida(self, decremento):
         self._vida -= decremento
-        if self.vida < 0:
+        if self._vida < 0:
             self._vida = 0
 
     def subir_nivel(self, incremento):

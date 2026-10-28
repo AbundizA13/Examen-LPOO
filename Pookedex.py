@@ -1,4 +1,4 @@
-from Pokedex.combate import Combate
+from combate import Combate
 from pokemon_manager import *
 from copy import deepcopy
 
@@ -27,8 +27,8 @@ def Elegir_Pokemon():
         else:
             print("Pokemon no valido...")
 
-        if opcion == 0:
-            opcion = randint(1, 4)
+    if opcion == 0:
+        opcion = randint(1, 4)
 
     pokemon = crearPokemonInicial(opcion)
     print(f"\nExcelente {nombre}. Tu acompañante es {pokemon.get_nombre()}")
@@ -92,6 +92,7 @@ def opcion_3(pokemon, enemigos, capturados):
     combate = Combate(pokemon, enemigo_pelear)
     estado_combate = combate.ciclo_combate()
     if estado_combate:
+        enemigo_actual.set_atrapado()
         capturados.append(enemigo_actual)
     enter_para_continuar()
 
