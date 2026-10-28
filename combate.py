@@ -20,8 +20,8 @@ class Combate:
         print("\n-+--|-----Combate-----|--+-")
         #Mientras ambos pokemons sigan vivos...
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
-            print(f"Aliado: {self.aliado.nombre} - HP: {self.aliado.vida}")
-            print(f"Enemigo: {self.aliado.nombre} - HP: {self.aliado.vida}")
+            print(f"Aliado: {self.aliado.get_nombre()} - HP: {self.aliado.get_vida()}")
+            print(f"Enemigo: {self.enemigo.get_nombre()} - HP: {self.enemigo.get_vida()}")
             if not self.turno_aliado():
                 print("Has escapado del combate...\n")
                 return
@@ -33,7 +33,7 @@ class Combate:
 
 
     def turno_aliado(self):
-        print(f"+--- Turno Aliado ({self.aliado.nombre}) ---+\n")
+        print(f"+--- Turno Aliado ({self.aliado.get_nombre()}) ---+\n")
         print("1. Pasar Turno.\t2. Ataque Normal.")
         print("3. Ataque Especial.\t4. Huir")
         opcion_aliado = int(input("Ingrese una opción: "))
@@ -41,15 +41,15 @@ class Combate:
         if opcion_aliado == 1:
             print("Turno pasado...")
         elif opcion_aliado == 2:
-            print(f"¡{self.aliado.nombre} ha usado ataque normal!")
-            dano = self.aliado.ataque
+            print(f"¡{self.aliado.get_nombre()} ha usado ataque normal!")
+            dano = self.aliado.get_ataque()
             self.procesar_dano(dano, self.enemigo)
-            print(f"Has infligido {dano} pts. de daño a {self.enemigo.nombre}.\n")
+            print(f"Has infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
         elif opcion_aliado == 3:
-            print(f"¡{self.aliado.nombre} ha usado {self.aliado.ataque_especial}!")
-            dano = int(self.aliado.ataque * 1.8)
-            self.procesar_dano(dano, self.enemigo)
-            print(f"Ha infligido {dano} pts. de daño a {self.enemigo.nombre}.\n")
+            print(f"¡{self.aliado.get_nombre()} ha usado {self.aliado.get_ataque_especial()}!")
+            dano = int(self.aliado.get_ataque() * 1.8)
+            self.enemigo.procesar_dano(dano)
+            print(f"Ha infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
         else:
             print("Has escapado el combate...\n\n")
             return False
@@ -60,34 +60,26 @@ class Combate:
 
 
     def turno_enemigo(self):
-        print(f"+--- Turno Enemigo ({self.enemigo.nombre}) ---+\n")
+        print(f"+--- Turno Enemigo ({self.enemigo.get_nombre()}) ---+\n")
         opcion_enemigo = randint(1, 3)
 
 
         if opcion_enemigo == 1:
-            print(f"{self.enemigo.nombre} ha utilizado ataque normal.")
-            dano = self.enemigo.ataque
+            print(f"{self.enemigo.get_nombre()} ha utilizado ataque normal.")
+            dano = self.enemigo.get_ataque()
         elif opcion_enemigo == 2:
-            print(f"{self.enemigo.nombre} ha utilizado {self.enemigo.ataque_especial}")
-            dano = int(self.enemigo.ataque * 1.6)
+            print(f"{self.enemigo.get_nombre()} ha utilizado {self.enemigo.get_ataque_especial()}")
+            dano = int(self.enemigo.get_ataque() * 1.6)
         else:
-            print(f"{self.enemigo.nombre} no hizo nada y pasó turno.")
+            print(f"{self.enemigo.get_nombre()} no hizo nada y pasó turno.")
             return
 
-        self.procesar_dano(dano, self.aliado)
-
-    def procesar_dano(self, dano: int, receptor: Pokemon):
-        if dano > receptor.defensa:
-            dano_sobrante = dano - receptor.defensa
-            receptor.eliminar_defensa()
-            receptor.vida -= dano_sobrante
-        else:
-            receptor.defensa -= dano
+        self.aliado.procesar_dano(dano)
 
     #Devuelve True si el jugador ganó
     def imprimir_estado_combate(self):
         if self.aliado.sigue_vivo():
             print("Has ganado el combate :D")
-            print(f"Has capturado al Pokemon \"{self.enemigo.nombre}\".")
+            print(f"Has capturado al Pokemon \"{self.enemigo.get_nombre()}\".")
             return True
         return False

@@ -30,7 +30,7 @@ def Elegir_Pokemon():
             opcion = randint(1, 4)
 
     pokemon = crearPokemonInicial(opcion)
-    print(f"\nExcelente {nombre}. Tu acompañante es {pokemon.nombre}")
+    print(f"\nExcelente {nombre}. Tu acompañante es {pokemon.get_nombre()}")
     pokemon.detalles_pokemon()
     print("Diviértete en esta aventura\n")
 
@@ -47,7 +47,7 @@ def opcion_1(pokemon):
     pokemon.detalles_pokemon()
 
 # Opcion 1 -> 2 - Interacciones de pokemon
-def opcion_2(pokemon):
+def opcion_2(pokemon:Pokemon):
     while True:
         print("\n-------Interacciones--------")
         print("1. Jugar")
@@ -58,6 +58,7 @@ def opcion_2(pokemon):
         print("---------------------")
         opcion = int(input("Ingrese una opción: "))
         if opcion == 1:
+            print(f"Has jugado con {pokemon.get_nombre()}")
             pass
         elif opcion == 2:
             pokemon.hablar()
@@ -130,7 +131,7 @@ def opcion_5(pokemon, enemigos):
         return
 
     enemigos.append(enemigo)
-    print(f"\n{enemigo.nombre} se agregó a la lista de enemigos")
+    print(f"\n{enemigo.get_nombre()} se agregó a la lista de enemigos")
     enemigo.detalles_pokemon()
 
 # Opcion de entrenamiento
@@ -178,17 +179,17 @@ def Entrenamiento_individual(pokemon):
         if opcion==1:
             print("\n-------Incrementar Ataque--------")
             pokemon.subir_ataque(20)
-            print(f"{pokemon.nombre} Incrementó su ataque +20")
+            print(f"{pokemon.get_nombre()} Incrementó su ataque +20")
             pokemon.detalles_pokemon()
         elif opcion==2:
             print("\n-------Incrementar Defensa--------")
             pokemon.subir_defensa(20)
-            print(f"{pokemon.nombre} Incrementó su defensa +20")
+            print(f"{pokemon.get_nombre()} Incrementó su defensa +20")
             pokemon.detalles_pokemon()
         elif opcion==3:
             print("\n-------Incrementar Vida--------")
             pokemon.subir_vida(20)
-            print(f"{pokemon.nombre} Incrementó su vida +20")
+            print(f"{pokemon.get_nombre()} Incrementó su vida +20")
             pokemon.detalles_pokemon()
         elif opcion==0:
             break
@@ -198,7 +199,7 @@ def Entrenamiento_individual(pokemon):
 # Entrenamiento Intensivo
 def Entrenamiento_Intensivo(pokemon):
     pokemon.actualizar(20, 20, 20)
-    print(f"El pokemon {pokemon.nombre} ha entrenado... Ataque +20, Vida +20, Defensa +20")
+    print(f"El pokemon {pokemon.get_nombre()} ha entrenado... Ataque +20, Vida +20, Defensa +20")
     pokemon.detalles_pokemon()
 
 # Entrenamiento Personalizado
@@ -216,20 +217,20 @@ def Entrenamiento_Personalizado(pokemon):
             print("\n-------Incrementar Ataque--------")
             incremen= int(input("Ingrese el incremento del ataque: "))
             pokemon.subir_ataque(incremen)
-            print(f"{pokemon.nombre} Incrementó su ataque +{incremen}")
+            print(f"{pokemon.get_nombre()} Incrementó su ataque +{incremen}")
             pokemon.detalles_pokemon()
         
         elif opcion == 2:
             print("\n-------Incrementar Defensa--------")
             increment= int(input("Ingrese el incremento de la defensa: "))
             pokemon.subir_defensa(increment)
-            print(f"{pokemon.nombre} Incrementó su defensa +{increment}")
+            print(f"{pokemon.get_nombre()} Incrementó su defensa +{increment}")
             pokemon.detalles_pokemon()
         elif opcion == 3:
             print("\n-------Incrementar Vida--------")
             incremento= int(input("Ingrese el incremento de la vida: "))
             pokemon.subir_vida(incremento)
-            print(f"{pokemon.nombre} Incrementó su vida +{incremento}")
+            print(f"{pokemon.get_nombre()} Incrementó su vida +{incremento}")
             pokemon.detalles_pokemon()
         elif opcion == 0:
             break
