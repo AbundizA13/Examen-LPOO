@@ -1,5 +1,6 @@
 from Pokedex.combate import Combate
 from pokemon_manager import *
+from copy import deepcopy
 
 # Crea el objeto pokemon
 def Elegir_Pokemon():
@@ -33,6 +34,7 @@ def Elegir_Pokemon():
     print(f"\nExcelente {nombre}. Tu acompañante es {pokemon.get_nombre()}")
     pokemon.detalles_pokemon()
     print("Diviértete en esta aventura\n")
+    enter_para_continuar()
 
     return pokemon
 
@@ -45,6 +47,7 @@ def opcion_1(pokemon):
     '''
     print("\n-------Detalles--------")
     pokemon.detalles_pokemon()
+    enter_para_continuar()
 
 # Opcion 1 -> 2 - Interacciones de pokemon
 def opcion_2(pokemon:Pokemon):
@@ -59,11 +62,16 @@ def opcion_2(pokemon:Pokemon):
         opcion = int(input("Ingrese una opción: "))
         if opcion == 1:
             print(f"Has jugado con {pokemon.get_nombre()}")
+            enter_para_continuar()
             pass
         elif opcion == 2:
             pokemon.hablar()
+            enter_para_continuar()
         elif opcion == 3:
-            pass
+            niveles_agregados = randint(2,4)
+            print(f"Has alimentado a {pokemon.get_nombre()}.\nSu nivel ha incrementado +{niveles_agregados}")
+            pokemon.subir_nivel(niveles_agregados)
+            enter_para_continuar()
         elif opcion == 4:
             opcion_entrenamiento(pokemon)
         elif opcion == 0:
@@ -76,13 +84,16 @@ def opcion_3(pokemon, enemigos, capturados):
     tamano_enemigos = len(enemigos)
     if tamano_enemigos == 0:
         print("Debes crear enemigos antes de combatir.")
+        enter_para_continuar()
         return
     random = randint(0,tamano_enemigos-1)
     enemigo_actual = enemigos[random]
-    combate = Combate(pokemon, enemigo_actual)
+    enemigo_pelear = deepcopy(enemigo_actual)
+    combate = Combate(pokemon, enemigo_pelear)
     estado_combate = combate.ciclo_combate()
     if estado_combate:
         capturados.append(enemigo_actual)
+    enter_para_continuar()
 
 
 
@@ -91,6 +102,7 @@ def opcion_4(pokemon, capturados):
     print("Pokemons capturados: ")
     for capturado in capturados:
         capturado.detalles_pokemon()
+    enter_para_continuar()
 
 # Opcion 1 -> 5 - Crear Pokemon enemigo 
 def opcion_5(pokemon, enemigos):
@@ -128,11 +140,13 @@ def opcion_5(pokemon, enemigos):
         for enemigo in enemigos:
             enemigo.detalles_pokemon()
             print("+---------------+")
+            enter_para_continuar()
         return
 
     enemigos.append(enemigo)
     print(f"\n{enemigo.get_nombre()} se agregó a la lista de enemigos")
     enemigo.detalles_pokemon()
+    enter_para_continuar()
 
 # Opcion de entrenamiento
 def opcion_entrenamiento(pokemon):
@@ -265,6 +279,9 @@ def Main(pokemon, enemigos, capturados):
             break
         else:
             print("Opcion no valida...")
+
+def enter_para_continuar():
+    input("\nENTER para continuar.\n")
 
 # Ejemplo de uso:
 # Pokemon_elegido = Elegir_Pokemon()

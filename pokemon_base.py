@@ -79,12 +79,16 @@ class Pokemon(PokemonBase):
         self.subir_nivel(10)
         print(f"El pokemon {self._nombre} ha entrenado... Ataque +10, Vida +10, Defensa +10, Nivel +10")
 
-        if self._nivel >= 100 and self._evolucion < 3: #Ha llegado al nivel para evolucionar
+        self.solucionar_evolucion()
+
+    def solucionar_evolucion(self):
+        if self._nivel >= 100 and self._evolucion < 3:
             self._nivel = 0
-            self.evolucion += 1
+            self._evolucion += 1
             nombre_antiguo = self._nombre
             self._nombre = self.obtener_nombre_evolucion()
-            print(f"El pokemon {nombre_antiguo} a evolucionado a {self._nombre}.")
+            print(f"\nEl pokemon {nombre_antiguo} ha evolucionado a {self._nombre}\n")
+            input("ENTER para continuar.\n")
 
     def obtener_nombre_evolucion(self):
         pass
@@ -139,7 +143,7 @@ class PokemonAgua(Pokemon):
 
 class PokemonFuego(Pokemon):
     __evoluciones = ["Charmander", "Charmeleon", "Charizard"]
-    ataque_especial = "Lanzallamas"
+    __ataque_especial = "Lanzallamas"
 
 
     def __init__(self, ataque, defensa, vida):
