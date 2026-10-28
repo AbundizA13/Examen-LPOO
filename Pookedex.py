@@ -7,7 +7,6 @@ import os
 def Limpiar():
     os.system("cls")
 
-# Crea el objeto pokemon
 def Elegir_Pokemon():
     print("-------Pookédex--------")
     print("Bienvenido a tu aventura Pokemon viendo temas de POO")
@@ -18,7 +17,6 @@ def Elegir_Pokemon():
     print(f"\nMuy bien, {nombre}, aún no tienes ningún Pokémon.")
     print("Debes elegir uno de los 4 que tenemos para ti:")
 
-    #Este es el punto donde se elige uno de los 4 pokemones cuando estamos en nuestra aventura
     print("1. Charmander (Fuego)")
     print("2. Bulbasaur (Hierba)")
     print("3. Squirtle (Agua)")
@@ -46,19 +44,12 @@ def Elegir_Pokemon():
 
     return pokemon
 
-# CLASE OPCIONES - MAIN
-# Opcion 1 -> 1 - Detalles de pokemon
 def opcion_1(pokemon):
-    ''''
-    Muestra en pantalla todos los detalles del Pokémon (nombre, descripción, ataque, defensa, vida,
-    nivel, evolución, y si ha sido atrapado).
-    '''
     print("\n-------Detalles--------")
     pokemon.detalles_pokemon()
     enter_para_continuar()
     Limpiar()
 
-# Opcion 1 -> 2 - Interacciones de pokemon
 def opcion_2(pokemon:Pokemon):
     while True:
         print("\n-------Interacciones--------")
@@ -100,7 +91,6 @@ def opcion_2(pokemon:Pokemon):
             enter_para_continuar()
             Limpiar()
 
-# Opcion 1 -> 3 - Combate
 def opcion_3(pokemon, enemigos, capturados):
     tamano_enemigos = len(enemigos)
     if tamano_enemigos == 0:
@@ -121,7 +111,6 @@ def opcion_3(pokemon, enemigos, capturados):
 
 
 
-# Opcion 1 -> 4 - Pokemon Atrapado
 def opcion_4(pokemon, capturados):
     print("Pokemons capturados: ")
     for capturado in capturados:
@@ -129,7 +118,6 @@ def opcion_4(pokemon, capturados):
     enter_para_continuar()
     Limpiar()
 
-# Opcion 1 -> 5 - Crear Pokemon enemigo 
 def opcion_5(pokemon, enemigos):
     print("\n-------Creación--------")
     print("1. Fuego.")
@@ -176,7 +164,6 @@ def opcion_5(pokemon, enemigos):
     enter_para_continuar()
     Limpiar()
 
-# Opcion de entrenamiento
 def opcion_entrenamiento(pokemon):
     while True:
         print("\n-------Entrenamiento--------")
@@ -211,14 +198,11 @@ def opcion_entrenamiento(pokemon):
             enter_para_continuar()
             Limpiar()
 
-# CLASE ENTRENAMIENTO
-# Opciones de entrenamiento
 def Entrenamiento_normal(pokemon):
     print("\n-------Entrenamiento Normal--------")
     pokemon.entrenar()
     pokemon.detalles_pokemon()
 
-# Entrenamiento individual
 def Entrenamiento_individual(pokemon):
     while True:
         print("\n-------Entrenamiento Individual--------")
@@ -248,14 +232,12 @@ def Entrenamiento_individual(pokemon):
         else:
             print("Ingrese una opción correcta")
 
-# Entrenamiento Intensivo
 def Entrenamiento_Intensivo(pokemon):
     pokemon.actualizar(20, 20, 20)
     pokemon.subir_nivel(20)
     print(f"El pokemon {pokemon.get_nombre()} ha entrenado... Ataque +20, Vida +20, Defensa +20, Nivel +20")
     pokemon.detalles_pokemon()
 
-# Entrenamiento Personalizado
 def Entrenamiento_Personalizado(pokemon):
     while True:
         print("\n-------Entrenamiento Personalizado--------")
@@ -301,8 +283,6 @@ def Entrenamiento_Personalizado(pokemon):
         else:
             print("Ingrese una opción correcta")
 
-# Lleva un arreglo de funciones
-# internas
 def Main(pokemon, enemigos, capturados):
     while True:
         print("\n-------Menú--------")
@@ -340,11 +320,6 @@ def Main(pokemon, enemigos, capturados):
 def enter_para_continuar():
     input("\nENTER para continuar.\n")
 
-# Ejemplo de uso:
-# Pokemon_elegido = Elegir_Pokemon()
-
-# Primer Menu (Crear pokemon)
-# Devuelve la instancia del pokemon con la que se maneja
 enemigos = []
 capturados = []
 

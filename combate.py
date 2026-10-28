@@ -1,8 +1,3 @@
-"""
-Vamos a separar los menús del main a un menú compacto de combate
-
-Los demás menús seguirán viviendo en Pookedex.py
-"""
 from pokemon_base import Pokemon
 from random import randint
 
@@ -15,11 +10,8 @@ class Combate:
         self.aliado = aliado
         self.enemigo = enemigo
 
-    #Se llamará SOLO una vez, cada que inicie un nuevo combate
-    #Este se encargará de acabar cuando uno de los dos pokemons muera.
     def ciclo_combate(self):
         print("\n-+--|-----Combate-----|--+-")
-        #Mientras ambos pokemons sigan vivos...
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
             print(f"Aliado: {self.aliado.get_nombre()} - HP: {self.aliado.get_vida()}")
             print(f"Enemigo: {self.enemigo.get_nombre()} - HP: {self.enemigo.get_vida()}")
@@ -87,7 +79,6 @@ class Combate:
 
         self.aliado.procesar_dano(dano)
 
-    #Devuelve True si el jugador ganó
     def imprimir_estado_combate(self):
         if self.aliado.sigue_vivo():
             print("Has ganado el combate :D")

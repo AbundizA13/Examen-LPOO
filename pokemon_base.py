@@ -1,5 +1,26 @@
 from abc import ABC, abstractmethod
 
+class Entrenamiento(ABC):
+    @abstractmethod
+    def subir_ataque(self, incremento):
+        pass
+
+    @abstractmethod
+    def subir_defensa(self, incremento):
+        pass
+
+    @abstractmethod
+    def subir_vida(self, incremento):
+        pass
+
+    @abstractmethod
+    def subir_nivel(self, incremento):
+        pass
+
+    @abstractmethod
+    def entrenar(self):
+        pass
+
 class PokemonBase(ABC):
     _nombre : str
     _descripcion: str
@@ -49,9 +70,6 @@ class PokemonBase(ABC):
     def set_atrapado(self):
         self._atrapado = True
 
-    @abstractmethod
-    def entrenar(self):
-        pass
 
     def __init__(self, nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado):
         self._nombre = nombre
@@ -64,7 +82,7 @@ class PokemonBase(ABC):
         self._atrapado = atrapado
 
 
-class Pokemon(PokemonBase):
+class Pokemon(PokemonBase, Entrenamiento):
 
     def actualizar(self, boost_ataque, boost_vida, boost_defensa):
         self.subir_ataque(boost_ataque)
