@@ -18,8 +18,6 @@ class Combate:
     #Este se encargará de acabar cuando uno de los dos pokemons muera.
     def ciclo_combate(self):
         print("\n-+--|-----Combate-----|--+-")
-        print(f"Aliado: {self.aliado.nombre} - HP: {self.aliado.vida}")
-        print(f"Enemigo: {self.aliado.nombre} - HP: {self.aliado.vida}")
         #Mientras ambos pokemons sigan vivos...
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
             print(f"Aliado: {self.aliado.nombre} - HP: {self.aliado.vida}")
@@ -27,7 +25,8 @@ class Combate:
             if not self.turno_aliado():
                 print("Has escapado del combate...\n")
                 return
-            self.turno_enemigo()
+            if self.enemigo.sigue_vivo():
+                self.turno_enemigo()
         if self.imprimir_estado_combate():
             return True
         return False

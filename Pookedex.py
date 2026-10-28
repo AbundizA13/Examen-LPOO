@@ -1,3 +1,4 @@
+from Pokedex.combate import Combate
 from pokemon_manager import *
 
 # Crea el objeto pokemon
@@ -70,31 +71,28 @@ def opcion_2(pokemon):
             print("Ingrese una opción correcta")
 
 # Opcion 1 -> 3 - Combate
-def opcion_3(pokemon):
-    while True:
-        print("\n-------Combate--------")
-        print("1. Pasar Turno")
-        print("2. Ataque Normal")
-        print("3. Ataque Especial")
-        print("4. Huir")
-        opcion = int(input("Ingrese una opción: "))
-        if opcion == 1:
-            pass
-        elif opcion == 2:
-            pass
-        elif opcion == 3:
-            pass
-        elif opcion == 4:
-            break
-        else:
-            print("Opcion no valida...")
+def opcion_3(pokemon, enemigos, capturados):
+    tamano_enemigos = len(enemigos)
+    if tamano_enemigos == 0:
+        print("Debes crear enemigos antes de combatir.")
+        return
+    random = randint(0,tamano_enemigos-1)
+    enemigo_actual = enemigos[random]
+    combate = Combate(pokemon, enemigo_actual)
+    estado_combate = combate.ciclo_combate()
+    if estado_combate:
+        capturados.append(enemigo_actual)
+
+
 
 # Opcion 1 -> 4 - Pokemon Atrapado
-def opcion_4(pokemon):
-    pass
+def opcion_4(pokemon, capturados):
+    print("Pokemons capturados: ")
+    for capturado in capturados:
+        capturado.detalles_pokemon()
 
 # Opcion 1 -> 5 - Crear Pokemon enemigo 
-def opcion_5(pokemon):
+def opcion_5(pokemon, enemigos):
     print("\n-------Creación--------")
     print("1. Fuego.")
     print("2. Hierba.")
@@ -240,7 +238,7 @@ def Entrenamiento_Personalizado(pokemon):
 
 # Lleva un arreglo de funciones
 # internas
-def Main(pokemon):
+def Main(pokemon, enemigos, capturados):
     while True:
         print("\n-------Menú--------")
         print("1. Detalles de mi pokemon")
@@ -257,11 +255,11 @@ def Main(pokemon):
         elif opcion == 2:
             opcion_2(pokemon)
         elif opcion == 3:
-            opcion_3(pokemon)
+            opcion_3(pokemon, enemigos, capturados)
         elif opcion == 4:
-            opcion_4(pokemon)
+            opcion_4(pokemon, capturados)
         elif opcion == 5:
-            opcion_5(pokemon)
+            opcion_5(pokemon, enemigos)
         elif opcion == 0:
             break
         else:
@@ -272,5 +270,8 @@ def Main(pokemon):
 
 # Primer Menu (Crear pokemon)
 # Devuelve la instancia del pokemon con la que se maneja
+enemigos = []
+capturados = []
+
 pokemon_predeterminado = Elegir_Pokemon()
-Main(pokemon_predeterminado)
+Main(pokemon_predeterminado, enemigos, capturados)
