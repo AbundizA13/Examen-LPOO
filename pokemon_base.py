@@ -157,7 +157,6 @@ class Pokemon(PokemonBase, Entrenamiento):
         else:
             self._defensa -= dano
 
-    #Constructor para Pókemon por defecto, su nivel y evolución empiezan en el mínimo | No atrapado por defecto
     def __init__(self, nombre, descripcion, ataque, defensa, vida , nivel = 1, evolucion = 1, atrapado = False):
         super().__init__(nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado)
 

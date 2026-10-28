@@ -59,9 +59,6 @@ class Combate:
         return True
 
 
-
-
-
     def turno_enemigo(self):
         print(f"+--- Turno Enemigo ({self.enemigo.get_nombre()}) ---+\n")
         opcion_enemigo = randint(1, 3)
