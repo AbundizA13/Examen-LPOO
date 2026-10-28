@@ -106,21 +106,34 @@ class Pokemon(PokemonBase):
 
     def subir_ataque(self, incremento):
         self._ataque += incremento
+        if self._ataque > 1000:
+            self._ataque = 1000
 
     def subir_defensa(self, incremento):
         self._defensa += incremento
+        if self._defensa > 1000:
+            self._defensa = 1000
 
     def subir_vida(self, incremento):
         self._vida += incremento
+        if self.vida > 1000:
+            self._vida = 1000
+
+    def reducir_vida(self, decremento):
+        self._vida -= decremento
+        if self.vida < 0:
+            self._vida = 0
 
     def subir_nivel(self, incremento):
         self._nivel += incremento
+        if self._nivel > 1000:
+            self._nivel = 1000
 
     def procesar_dano(self, dano):
         if dano > self._defensa:
             dano_sobrante = dano - self._defensa
             self.eliminar_defensa()
-            self._vida -= dano_sobrante
+            self.reducir_vida(dano_sobrante)
         else:
             self._defensa -= dano
 
