@@ -74,6 +74,7 @@ def opcion_2(pokemon:Pokemon):
             niveles_agregados = randint(2,4)
             print(f"Has alimentado a {pokemon.get_nombre()}.\nSu nivel ha incrementado +{niveles_agregados}")
             pokemon.subir_nivel(niveles_agregados)
+            pokemon.solucionar_evolucion()
             enter_para_continuar()
             Limpiar()
 
@@ -137,6 +138,15 @@ def opcion_5(pokemon, enemigos):
         print("Ingrese una opción correcta")
         return
 
+    if tipo == 5:
+        print("Enemigos almacenados:\n+---------------+")
+        for enemigo in enemigos:
+            enemigo.detalles_pokemon()
+            print("+---------------+")
+        enter_para_continuar()
+        Limpiar()
+        return
+
     ataque = int(input("Ingresa el ataque (1-1000): "))
     defensa = int(input("Ingresa la defensa (1-1000): "))
     vida = int(input("Ingresa la vida (1-1000): "))
@@ -149,14 +159,6 @@ def opcion_5(pokemon, enemigos):
         enemigo = construir_pokemon_agua(vida=vida, ataque=ataque, defensa=defensa)
     elif tipo == 4:
         enemigo = construir_pokemon_electrico(vida=vida, ataque=ataque, defensa=defensa)
-    else:
-        print("Enemigos almacenados:\n+---------------+")
-        for enemigo in enemigos:
-            enemigo.detalles_pokemon()
-            print("+---------------+")
-            enter_para_continuar()
-            Limpiar()
-        return
 
     enemigos.append(enemigo)
     print(f"\n{enemigo.get_nombre()} se agregó a la lista de enemigos")

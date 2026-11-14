@@ -146,8 +146,8 @@ class Pokemon(PokemonBase, Entrenamiento):
 
     def subir_nivel(self, incremento):
         self._nivel += incremento
-        if self._nivel > 1000:
-            self._nivel = 1000
+        if self._nivel > 100:
+            self._nivel = 100
 
     def procesar_dano(self, dano):
         if dano > self._defensa:
@@ -162,7 +162,7 @@ class Pokemon(PokemonBase, Entrenamiento):
 
 class PokemonAgua(Pokemon):
     __evoluciones = ["Squirtle", "Wartortle", "Blastoise"]
-    __ataque_especial = "Latigazo"
+    __ataque_especial = "Hidrobomba"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.__evoluciones[0], "Rocía espuma con gran fuerza por su boca.",ataque,defensa,vida)
@@ -202,7 +202,7 @@ class PokemonElectrico(Pokemon):
 
 class PokemonHierba(Pokemon):
     __evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
-    __ataque_especial = "Hidrobomba"
+    __ataque_especial = "Latigazo"
 
     def __init__(self, ataque, defensa, vida):
         super().__init__(self.__evoluciones[0], "Una extraña semilla fue plantada en su espalda al nacer.",ataque,defensa,vida)

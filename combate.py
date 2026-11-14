@@ -1,6 +1,6 @@
 from pokemon_base import Pokemon
 from random import randint
-
+from time import sleep
 
 class Combate:
     aliado = None
@@ -13,13 +13,16 @@ class Combate:
     def ciclo_combate(self):
         print("\n-+--|-----Combate-----|--+-")
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
-            print(f"Aliado: {self.aliado.get_nombre()} - HP: {self.aliado.get_vida()}")
-            print(f"Enemigo: {self.enemigo.get_nombre()} - HP: {self.enemigo.get_vida()}")
+            self.__mostrar_estado_combate()
+            sleep(2)
             if not self.turno_aliado():
                 print("Has escapado del combate...\n")
-                return
+                return False
+            self.__mostrar_estado_combate()
+            sleep(2)
             if self.enemigo.sigue_vivo():
                 self.turno_enemigo()
+
         
         if self.imprimir_estado_combate():
             self.procesar_final_combate()
@@ -28,6 +31,10 @@ class Combate:
 
         self.aliado.subir_vida(100)
         return False
+
+    def __mostrar_estado_combate(self):
+        print(f"\nAliado: {self.aliado.get_nombre()} - HP: {self.aliado.get_vida()} | DEF: {self.aliado.get_defensa()} |")
+        print(f"Enemigo: {self.enemigo.get_nombre()} - HP: {self.enemigo.get_vida()} | DEF: {self.enemigo.get_defensa()} |\n")
         
     def procesar_final_combate(self):
         niveles_agregados = randint(5, 15)
