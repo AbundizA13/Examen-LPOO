@@ -77,3 +77,8 @@ Has capturado al Pokemon "Pichu".
 
 Tu pokemon ha recibido 9 niveles de XP.
 
+
+================ TURNO 1 =================
+  Aliado: Charmander | HP: 39 | DEF: 43 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+===========================================
