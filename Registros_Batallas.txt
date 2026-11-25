@@ -32,3 +32,8 @@ El aliado eligió la opción 0.
 Has escapado el combate...
 
 
+
+================ TURNO 1 =================
+  Aliado: Charizard | HP: 310 | DEF: 210 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
