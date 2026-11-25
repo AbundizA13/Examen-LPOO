@@ -1,28 +1,39 @@
 import os
 import sqlite3
 
-from pokemon_base import Pokemon
+from pokemon_base import Pokemon, PokemonAgua, PokemonFuego, PokemonElectrico, PokemonHierba
 
 class Partida:
-    #Almacena el estado completo de la partida para ser leido.
-    def __init__(self,id_partida:int, nombre:str,principal:Pokemon,creados:list,capturados:list):
+
+    def __init__(self, id_partida: int, nombre: str, principal: Pokemon = None, creados: list = None, capturados: list = None):
         self.__id_partida = id_partida
         self.__nombre = nombre
         self.__principal = principal
-        self.__creados = creados
-        self.__capturados = capturados
+        self.__creados = creados if creados is not None else []
+        self.__capturados = capturados if capturados is not None else []
+
 
     def get_id(self):
         return self.__id_partida
     def get_nombre(self):
         return self.__nombre
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
     def get_pkm_principal(self):
         return self.__principal
+    def set_pkm_principal(self, pkm_principal:Pokemon):
+        self.__principal = pkm_principal
     def get_pkm_creados(self):
         return self.__creados
     def get_pkm_capturados(self):
         return self.__capturados
 
+TIPO_CLASES = {
+    "fuego": PokemonFuego,
+    "agua": PokemonAgua,
+    "electrico": PokemonElectrico,
+    "hierba": PokemonHierba
+}
 
 class BaseDatos:
     __RUTA_BD = "./db/pokedex.db"
@@ -54,8 +65,10 @@ class BaseDatos:
                 tipo TEXT NOT NULL CHECK (tipo IN ('fuego','agua','electrico','hierba')),
                 hp INTEGER,
                 ataque INTEGER,
+                defensa INTEGER,
                 nivel INTEGER,
                 evolucion INTEGER NOT NULL CHECK (evolucion BETWEEN 1 AND 3),
+                atrapado INTEGER NOT NULL DEFAULT 0,
                 FOREIGN KEY (id_partida) REFERENCES partidas(id_partida)
             )''')
 
@@ -75,15 +88,18 @@ class BaseDatos:
         cursor = conexion.cursor()
         cursor.execute(
             """
-            INSERT INTO pokemones (id_partida, rol, tipo, hp, ataque, nivel, evolucion)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO pokemones (id_partida, rol, tipo, hp, ataque, defensa, nivel, evolucion, atrapado)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (id_partida,
                   rol.lower(),
                   pokemon.get_tipo().lower(),
                   pokemon.get_vida(),
                   pokemon.get_ataque(),
+                  pokemon.get_defensa(),
                   pokemon.get_nivel(),
-                  pokemon.get_evolucion())
+                  pokemon.get_evolucion(),
+                  int(pokemon.get_atrapado())
+                  )
         )
 
     #Borra el slot de una partida y lo rellena con el objeto Partida
@@ -121,7 +137,62 @@ class BaseDatos:
         finally:
             conexion.close()
 
-    def obtener_partida(self, ):
-        pass
+    def obtener_partida(self, id_partida:int):
+        conexion = self.__conectar()
+        try:
+            #Permite hacer una diccionario en vez de una tupla normal
+            conexion.row_factory = sqlite3.Row
+            cursor = conexion.cursor()
+            #PARTIDA
+            cursor.execute("SELECT nombre FROM partidas WHERE id_partida = ?",(id_partida,))
+            fila_partida = cursor.fetchone()
+            if fila_partida is None:
+                return None
+            #partida encontrada - POKEMONS
+            cursor.execute("SELECT * FROM pokemones WHERE id_partida = ?",(id_partida,))
+            principal = None
+            creados = []
+            capturados = []
+            #Saca todos los pokemons en la partida
+            for fila in cursor.fetchall():
+                rol = fila['rol']
+                pkm = self.__fila_a_pokemon(fila)
+                if rol == "principal":principal=pkm
+                elif rol == "creado": creados.append(pkm)
+                else: capturados.append(pkm)
 
+            if principal is None:
+                raise ValueError("La partida no tiene Pokemon principal.")
+            return Partida(id_partida, fila_partida["nombre"], principal, creados, capturados)
+        except (sqlite3.Error, ValueError) as e:
+            print(f"No se pudo cargar la partida #{id_partida}: {e}")
+            return None
+        finally:
+            conexion.close()
 
+    def existe_partida(self, id_partida:int) -> bool:
+        conexion = self.__conectar()
+        try:
+            cursor = conexion.execute("SELECT 1 FROM partidas WHERE id_partida = ?",(id_partida,))
+            return cursor.fetchone() is not None
+        finally:
+            conexion.close()
+
+    def __fila_a_pokemon(self, fila):
+        clasePkm = TIPO_CLASES.get(fila["tipo"])
+        if clasePkm is None:
+            raise ValueError(f"Tipo desconocido en la base de datos: {fila['tipo']}")
+
+        pokemon = clasePkm(fila["ataque"], fila["defensa"], fila["hp"])
+        pokemon.restaurar_estado(fila["nivel"], fila["evolucion"], fila["atrapado"])
+        return pokemon
+
+    def obtener_output_menu_partidas(self) -> [str]:
+        estado_partidas = []
+        for n_partida in range(1,4):
+            if self.existe_partida(n_partida):
+                partida = self.obtener_partida(n_partida)
+                estado_partidas.append(f"Espacio #{n_partida}: \"{partida.get_nombre()}\".")
+            else:
+                estado_partidas.append(f"Espacio #{n_partida}: VACIO")
+        return estado_partidas

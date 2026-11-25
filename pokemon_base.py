@@ -170,6 +170,12 @@ class Pokemon(PokemonBase, Entrenamiento):
     def __init__(self, nombre, descripcion, ataque, defensa, vida , nivel = 1, evolucion = 1, atrapado = False):
         super().__init__(nombre, descripcion, ataque, defensa, vida, nivel, evolucion, atrapado)
 
+    def restaurar_estado(self, nivel, evolucion, atrapado):
+        self._nivel = nivel
+        self._evolucion = evolucion
+        self._atrapado = atrapado
+        self._nombre = self.obtener_nombre_evolucion()
+
 class PokemonAgua(Pokemon):
     __evoluciones = ["Squirtle", "Wartortle", "Blastoise"]
     __ataque_especial = "Hidrobomba"

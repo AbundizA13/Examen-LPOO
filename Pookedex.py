@@ -1,20 +1,17 @@
 from combate import Combate
 from pokemon_manager import *
 from copy import deepcopy
-from Persistencia import Partida
+from Persistencia import *
 
 import os
 
 def Limpiar():
     os.system("cls")
 
-def Elegir_Pokemon():
-    print("-------Pookédex--------")
-    print("Bienvenido a tu aventura Pokemon viendo temas de POO")
-    nombre = input("Antes de empezar, ¿cuál es tu nombre?: ")
-
+def Elegir_Pokemon(nombre:str):
     Limpiar()
-
+    print("\t\t-------Pookédex--------")
+    print("Bienvenido a tu aventura Pokemon viendo temas de POO")
     print(f"\nMuy bien, {nombre}, aún no tienes ningún Pokémon.")
     print("Debes elegir uno de los 4 que tenemos para ti:")
 
@@ -286,7 +283,10 @@ def Entrenamiento_Personalizado(pokemon):
         else:
             print("Ingrese una opción correcta")
 
-def Main(pokemon, enemigos, capturados):
+def Main(bd, partida):
+    pokemon = partida.get_pkm_principal()
+    enemigos = partida.get_pkm_creados()
+    capturados = partida.get_pkm_capturados()
     while True:
         print("\n-------Menú--------")
         print("1. Detalles de mi pokemon")
@@ -294,6 +294,7 @@ def Main(pokemon, enemigos, capturados):
         print("3. Combatir")
         print("4. Ver Pokémon atrapados")
         print("5. Crear Pokémon enemigo")
+        print("6. Guardar partida.")
         print("0. Salir")
         print("---------------------")
         opcion = int(input("Ingrese una opción: "))
@@ -313,6 +314,11 @@ def Main(pokemon, enemigos, capturados):
         elif opcion == 5:
             Limpiar()
             opcion_5(pokemon, enemigos)
+        elif opcion == 6:
+            Limpiar()
+            bd.guardar_partida(partida)
+            print("Partida guardada.")
+            enter_para_continuar()
         elif opcion == 0:
             break
         else:
@@ -323,10 +329,36 @@ def Main(pokemon, enemigos, capturados):
 def enter_para_continuar():
     input("\nENTER para continuar.\n")
 
-partida = Partida([],[],)
+def elegir_partida(base_datos:BaseDatos):
+    while True:
+        try:
+            for estado_partida in base_datos.obtener_output_menu_partidas():
+                print(estado_partida)
+            id_partida = int(input("Dame el número de slot de partida a usar: "))
+            if id_partida not in (1,2,3):
+                raise ValueError("El slot debe ser 1, 2 o 3.")
+            partida_cargada = base_datos.obtener_partida(id_partida)
 
-enemigos = []
-capturados = []
+            if partida_cargada is None:
+                partida_cargada = crear_partida_vacia(id_partida)
+            return partida_cargada
+        except ValueError as e:
+            print(f"Entrada inválida: {e}")
+            enter_para_continuar()
+            Limpiar()
 
-pokemon_predeterminado = Elegir_Pokemon()
-Main(pokemon_predeterminado, enemigos, capturados)
+def crear_partida_vacia(id_partida:int):
+    nombre = str(input("Dame el nombre tu nombre para esta partida: "))
+    return Partida(id_partida, nombre)
+
+
+bd = BaseDatos()
+bd.iniciar()
+
+partida = elegir_partida(bd)
+
+pokemon_predeterminado = Elegir_Pokemon(partida.get_nombre())
+partida.set_pkm_principal(pokemon_predeterminado)
+#Main(pokemon_predeterminado, partida.get_pkm_creados(), partida.get_pkm_capturados())
+Main(bd, partida)
+bd.guardar_partida(partida)
