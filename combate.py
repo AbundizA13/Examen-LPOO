@@ -23,7 +23,6 @@ class Combate:
         return self.__log
 
     def ciclo_combate(self):
-
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
             self.__mostrar_estado_combate()
             if not self.turno_aliado():
@@ -47,7 +46,7 @@ class Combate:
         self.__registrar(f"\n================ TURNO {self.__turno} =================")
         self.__registrar(f"  Aliado: {self.aliado.get_nombre()} | HP: {self.aliado.get_vida()} | DEF: {self.aliado.get_defensa()} |")
         self.__registrar(f"  Enemigo: {self.enemigo.get_nombre()} | HP: {self.enemigo.get_vida()} | DEF: {self.enemigo.get_defensa()} |")
-        self.__registrar("==========================================")
+        self.__registrar("=========================================================")
         
     def procesar_final_combate(self):
         niveles_agregados = randint(5, 15)
