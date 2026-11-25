@@ -22,6 +22,7 @@ class Entrenamiento(ABC):
         pass
 
 class PokemonBase(ABC):
+    _id = None
     _nombre : str
     _descripcion: str
     _ataque: int
@@ -30,6 +31,12 @@ class PokemonBase(ABC):
     _nivel: int
     _evolucion: int
     _atrapado: bool
+
+    def get_id(self):
+        return self._id
+
+    def set_id(self, id_nueva:int):
+        self._id = id_nueva
 
     def get_nombre(self):
         return self._nombre
@@ -113,6 +120,9 @@ class Pokemon(PokemonBase, Entrenamiento):
     def obtener_nombre_evolucion(self):
         pass
 
+    def get_tipo(self):
+        pass
+
     def hablar(self):
         print(f"[Un pokemon está hablando] {self._nombre}... {self._nombre}!")
 
@@ -173,6 +183,9 @@ class PokemonAgua(Pokemon):
     def get_ataque_especial(self):
         return self.__ataque_especial
 
+    def get_tipo(self):
+        return "agua"
+
 class PokemonFuego(Pokemon):
     __evoluciones = ["Charmander", "Charmeleon", "Charizard"]
     __ataque_especial = "Lanzallamas"
@@ -187,6 +200,9 @@ class PokemonFuego(Pokemon):
     def get_ataque_especial(self):
         return self.__ataque_especial
 
+    def get_tipo(self):
+        return "fuego"
+
 class PokemonElectrico(Pokemon):
     __evoluciones = ["Pichu", "Pikachu", "Raichu"]
     __ataque_especial = "Impactrueno"
@@ -200,6 +216,9 @@ class PokemonElectrico(Pokemon):
     def get_ataque_especial(self):
         return self.__ataque_especial
 
+    def get_tipo(self):
+        return "electrico"
+
 class PokemonHierba(Pokemon):
     __evoluciones = ["Bulbasaur", "Ivysaur", "Venusaur"]
     __ataque_especial = "Latigazo"
@@ -212,3 +231,6 @@ class PokemonHierba(Pokemon):
 
     def get_ataque_especial(self):
         return self.__ataque_especial
+
+    def get_tipo(self):
+        return "hierba"

@@ -1,6 +1,7 @@
 from combate import Combate
 from pokemon_manager import *
 from copy import deepcopy
+from Persistencia import Partida
 
 import os
 
@@ -321,6 +322,8 @@ def Main(pokemon, enemigos, capturados):
 
 def enter_para_continuar():
     input("\nENTER para continuar.\n")
+
+partida = Partida([],[],)
 
 enemigos = []
 capturados = []
