@@ -37,7 +37,6 @@ TIPO_CLASES = {
 
 class BaseDatos:
     __RUTA_BD = "./db/pokedex.db"
-    #conexion = None
 
     def __conectar(self):
         os.makedirs(os.path.dirname(self.__RUTA_BD), exist_ok=True)
@@ -83,13 +82,11 @@ class BaseDatos:
                 conexion.close()
 
 
-    #A partir de un objeto, lo escribe en la base de datos
     def __guardar_pokemon(self, pokemon: Pokemon, id_partida: int, rol: str, conexion):
         if rol not in ['principal', 'creado', 'capturado']:
             print("Se intentó guardar un pokemon con un rol desconocido.\nError en \"_guardar_pokemon()\".")
             return
 
-        # Se asigna id al pokemon en la base de datos (NO necesita ID)
 
         cursor = conexion.cursor()
         cursor.execute(
@@ -108,7 +105,6 @@ class BaseDatos:
                   )
         )
 
-    #Borra el slot de una partida y lo rellena con el objeto Partida
     def guardar_partida(self, partida:Partida):
         id_partida = partida.get_id()
         conexion = self.__conectar()
@@ -146,21 +142,17 @@ class BaseDatos:
     def obtener_partida(self, id_partida:int):
         conexion = self.__conectar()
         try:
-            #Permite hacer una diccionario en vez de una tupla normal
             conexion.row_factory = sqlite3.Row
             cursor = conexion.cursor()
-            #PARTIDA
             cursor.execute("SELECT nombre FROM partidas WHERE id_partida = ?",(id_partida,))
             fila_partida = cursor.fetchone()
             if fila_partida is None:
                 return None
-            #partida encontrada - POKEMONS
             cursor.execute("SELECT * FROM pokemones WHERE id_partida = ?",(id_partida,))
             principal = None
             creados = []
             capturados = []
-            
-            #Saca todos los pokemons en la partida
+
             for fila in cursor.fetchall():
                 rol = fila['rol']
                 pkm = self.__fila_a_pokemon(fila)

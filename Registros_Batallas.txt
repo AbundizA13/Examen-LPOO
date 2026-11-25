@@ -37,3 +37,43 @@ Has escapado el combate...
   Aliado: Charizard | HP: 310 | DEF: 210 |
   Enemigo: Charmander | HP: 100 | DEF: 100 |
 =========================================================
+
+================ TURNO 1 =================
+  Aliado: Squirtle | HP: 44 | DEF: 35 |
+  Enemigo: Pichu | HP: 50 | DEF: 40 |
+===========================================
+
+El aliado eligió la opción 3.
+¡Squirtle ha usado Hidrobomba!
+Ha infligido 86 pts. de daño a Pichu.
+
+
+================ TURNO 1 =================
+  Aliado: Squirtle | HP: 44 | DEF: 35 |
+  Enemigo: Pichu | HP: 4 | DEF: 0 |
+===========================================
++--- Turno Enemigo (Pichu) ---+
+
+Pichu ha utilizado Impactrueno
+El pokemon aliado ha recibido 48 puntos de daño.
+
+
+================ TURNO 2 =================
+  Aliado: Squirtle | HP: 31 | DEF: 0 |
+  Enemigo: Pichu | HP: 4 | DEF: 0 |
+===========================================
+
+El aliado eligió la opción 2.
+¡Squirtle ha usado ataque normal!
+Has infligido 48 pts. de daño a Pichu.
+
+
+================ TURNO 2 =================
+  Aliado: Squirtle | HP: 31 | DEF: 0 |
+  Enemigo: Pichu | HP: 0 | DEF: 0 |
+===========================================
+Has ganado el combate :D
+Has capturado al Pokemon "Pichu".
+
+Tu pokemon ha recibido 9 niveles de XP.
+

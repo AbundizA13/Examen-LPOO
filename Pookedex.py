@@ -99,7 +99,7 @@ def opcion_2(pokemon:Pokemon):
             print("Error: No puedes dejarlo vacío ni escribir letras. Ingresa un número.")
 
 
-def opcion_3(pokemon, enemigos, capturados, partida, registro):  # partida: para saber a qué partida pertenece el log
+def opcion_3(pokemon, enemigos, capturados, partida, registro):
     tamano_enemigos = len(enemigos)
     if tamano_enemigos == 0:
         print("Debes crear enemigos antes de combatir.")
@@ -111,11 +111,9 @@ def opcion_3(pokemon, enemigos, capturados, partida, registro):  # partida: para
     enemigo_pelear = deepcopy(enemigo_actual)
     combate = Combate(pokemon, enemigo_pelear)
     estado_combate = combate.ciclo_combate()
-    if estado_combate == "VICTORIA":  # ciclo_combate ahora regresa "VICTORIA", "DERROTA" o "HUIDA"
+    if estado_combate == "VICTORIA":
         enemigo_actual.set_atrapado()
         capturados.append(enemigo_actual)
-    #Esto lo puedes usar para escribirlo directamente en el .txt, con algunos retoques
-    combate.get_log() #THIAGO
     enter_para_continuar()
     Limpiar()
 
@@ -363,7 +361,6 @@ def guardar_partida(bd, partida):
 def ciclo_pruebas_manejo_errores():
     while True:
         try:
-            #Menu
             print("[1] ValueError\n[2] ZeroDivisionError\n[3] AttributeError\n[4] FileNotFoundError\n[5] sqlite3.OperationalError\n[0] Salir")
             opcion = int(input("Elige una opción: "))
 
@@ -423,7 +420,6 @@ def Main(bd, partida):
             print("5. Crear Pokémon enemigo")
             print("6. Guardar partida.")
             print("7. Pruebas de manejo de error")
-            # print("8. Registros de batalla")
             print("0. Salir")
             print("---------------------")
             opcion = int(input("Ingrese una opción: "))
