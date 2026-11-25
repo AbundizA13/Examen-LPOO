@@ -184,7 +184,7 @@ class BaseDatos:
             raise ValueError(f"Tipo desconocido en la base de datos: {fila['tipo']}")
 
         pokemon = clasePkm(fila["ataque"], fila["defensa"], fila["hp"])
-        pokemon.restaurar_estado(fila["nivel"], fila["evolucion"], fila["atrapado"])
+        pokemon.restaurar_estado(fila["nivel"], fila["evolucion"], bool(fila["atrapado"]))
         return pokemon
 
     def obtener_output_menu_partidas(self) -> [str]:

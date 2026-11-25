@@ -105,6 +105,8 @@ def opcion_3(pokemon, enemigos, capturados):
     if estado_combate:
         enemigo_actual.set_atrapado()
         capturados.append(enemigo_actual)
+    #Esto lo puedes usar para escribirlo directamente en el .txt, con algunos retoques
+    combate.get_log() #THIAGO
     enter_para_continuar()
     Limpiar()
 
@@ -283,12 +285,17 @@ def Entrenamiento_Personalizado(pokemon):
         else:
             print("Ingrese una opción correcta")
 
+def guardar_partida(bd, partida):
+    bd.guardar_partida(partida)
+    print("Partida guardada.")
+
 def Main(bd, partida):
     pokemon = partida.get_pkm_principal()
     enemigos = partida.get_pkm_creados()
     capturados = partida.get_pkm_capturados()
     while True:
-        print("\n-------Menú--------")
+        print(f"\n¿Qué deseas hacer, {partida.get_nombre()}?")
+        print("-+--------Menú---------+-")
         print("1. Detalles de mi pokemon")
         print("2. Interacciones Pokemon")
         print("3. Combatir")
@@ -316,10 +323,10 @@ def Main(bd, partida):
             opcion_5(pokemon, enemigos)
         elif opcion == 6:
             Limpiar()
-            bd.guardar_partida(partida)
-            print("Partida guardada.")
+            guardar_partida(bd, partida)
             enter_para_continuar()
         elif opcion == 0:
+            guardar_partida(bd, partida)
             break
         else:
             print("Opcion no valida...")
@@ -357,8 +364,9 @@ bd.iniciar()
 
 partida = elegir_partida(bd)
 
-pokemon_predeterminado = Elegir_Pokemon(partida.get_nombre())
-partida.set_pkm_principal(pokemon_predeterminado)
+if partida.get_pkm_principal() is None:
+    pokemon_predeterminado = Elegir_Pokemon(partida.get_nombre())
+    partida.set_pkm_principal(pokemon_predeterminado)
 #Main(pokemon_predeterminado, partida.get_pkm_creados(), partida.get_pkm_capturados())
 Main(bd, partida)
 bd.guardar_partida(partida)
