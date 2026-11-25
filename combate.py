@@ -29,7 +29,7 @@ class Combate:
         while self.enemigo.sigue_vivo() and self.aliado.sigue_vivo():
             self.__mostrar_estado_combate()
             if not self.turno_aliado():
-                return "HUIDA"  # el jugador escapó
+                return "HUIDA" 
             self.__mostrar_estado_combate()
             if self.enemigo.sigue_vivo():
                 self.turno_enemigo()
@@ -40,10 +40,10 @@ class Combate:
         if self.imprimir_estado_combate():
             self.procesar_final_combate()
             self.aliado.solucionar_evolucion()
-            return "VICTORIA"  # ganó y captura al enemigo
+            return "VICTORIA"
 
         self.aliado.subir_vida(100)
-        return "DERROTA"  # el aliado se quedó sin vida
+        return "DERROTA"
 
     def __mostrar_estado_combate(self):
         self.__registrar(f"\n================ TURNO {self.__turno} =================")
