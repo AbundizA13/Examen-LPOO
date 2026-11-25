@@ -6,6 +6,7 @@ class Combate:
     __turno = 1
     aliado = None
     enemigo = None
+    archivo_Historial = None
     
 
     def __init__(self, aliado: Pokemon, enemigo: Pokemon):
@@ -18,6 +19,7 @@ class Combate:
         self.__log.append(texto)
 
     def get_log(self):
+
         return self.__log
 
     def ciclo_combate(self):
