@@ -7,7 +7,7 @@ class Combate:
     aliado = None
     enemigo = None    
 
-    def __init__(self, aliado: Pokemon, enemigo: Pokemon, archivo_Historial):
+    def __init__(self, aliado: Pokemon, enemigo: Pokemon, archivo_Historial: str = "Registros_Batallas.txt"):
         self.aliado = aliado
         self.enemigo = enemigo
         self.__log = []

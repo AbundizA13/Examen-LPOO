@@ -97,7 +97,7 @@ def opcion_2(pokemon:Pokemon):
             print("Error: No puedes dejarlo vacío ni escribir letras. Ingresa un número.")
 
 
-def opcion_3(pokemon, enemigos, capturados, partida):  # partida: para saber a qué partida pertenece el log
+def opcion_3(pokemon, enemigos, capturados, partida, registro):  # partida: para saber a qué partida pertenece el log
     tamano_enemigos = len(enemigos)
     if tamano_enemigos == 0:
         print("Debes crear enemigos antes de combatir.")
@@ -174,6 +174,9 @@ def opcion_5(pokemon, enemigos):
         
         except ValueError as error:
             print(error)
+            enter_para_continuar()
+            Limpiar()
+            return
 
         enemigos.append(enemigo)
         print(f"\n{enemigo.get_nombre()} se agregó a la lista de enemigos")
@@ -181,6 +184,9 @@ def opcion_5(pokemon, enemigos):
     
     except ValueError:
         print("Error: No puedes dejarlo vacío ni escribir letras. Ingresa un número.")
+        enter_para_continuar()
+        Limpiar()
+        return
 
     enter_para_continuar()
     Limpiar()
@@ -383,7 +389,7 @@ def Main(bd, partida):
                 opcion_2(pokemon)
             elif opcion == 3:
                 Limpiar()
-                opcion_3(pokemon, enemigos, capturados, partida)
+                opcion_3(pokemon, enemigos, capturados, partida, "Registros_Batallas.txt")
             elif opcion == 4:
                 Limpiar()
                 opcion_4(pokemon, capturados)
