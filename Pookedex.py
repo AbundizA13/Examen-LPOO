@@ -357,6 +357,8 @@ def Main(bd, partida):
     enemigos = partida.get_pkm_creados()
     capturados = partida.get_pkm_capturados()
 
+    combate = Combate(pokemon, enemigos, "Registros_Batallas.txt")
+
     while True:
         try: 
             print(f"\n¿Qué deseas hacer, {partida.get_nombre()}?")
@@ -441,7 +443,6 @@ def crear_partida_vacia(id_partida:int):
 
 bd = BaseDatos()
 bd.iniciar()
-
 partida = elegir_partida(bd)
 
 if partida.get_pkm_principal() is None:
