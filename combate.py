@@ -7,11 +7,11 @@ class Combate:
     aliado = None
     enemigo = None    
 
-    def __init__(self, aliado: Pokemon, enemigo: Pokemon, archivo_Historial: str = "Registros_Batallas.txt"):
+    def __init__(self, aliado: Pokemon, enemigo: Pokemon, archivo_historial: str = "Registros_Batallas.txt"):
         self.aliado = aliado
         self.enemigo = enemigo
         self.__log = []
-        self.__archivo_Historial = archivo_Historial
+        self.__archivo_historial = archivo_historial
 
     def __registrar(self, texto=""):
         print(texto)
@@ -19,8 +19,8 @@ class Combate:
         try:
             with open(self.__archivo_historial, "a", encoding="utf-8") as archivo:
                 archivo.write(texto + "\n")
-        except FileNotFoundError:
-            print(f"Error: no se encontró la carpeta para el archivo '{self.__archivo_historial}'.")
+        except OSError as e:
+            print(f"Error al escribir el registro: {e}")
 
     def get_log(self):
         return self.__log

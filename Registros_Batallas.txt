@@ -1,0 +1,19 @@
+
+================ TURNO 1 =================
+  Aliado: Charmander | HP: 39 | DEF: 43 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
+
+El aliado eligió la opción 1.
+Turno pasado...
+
+================ TURNO 1 =================
+  Aliado: Charmander | HP: 39 | DEF: 43 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
++--- Turno Enemigo (Charmander) ---+
+
+Charmander ha utilizado ataque normal.
+El pokemon aliado ha recibido 100 puntos de daño.
+
+Perdiste
