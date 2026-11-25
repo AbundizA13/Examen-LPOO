@@ -17,3 +17,23 @@ Charmander ha utilizado ataque normal.
 El pokemon aliado ha recibido 100 puntos de daño.
 
 Perdiste
+
+================ TURNO 1 =================
+  Aliado: Charizard | HP: 310 | DEF: 210 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
+
+================ TURNO 1 =================
+  Aliado: Charizard | HP: 310 | DEF: 210 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
+
+El aliado eligió la opción 0.
+Has escapado el combate...
+
+
+
+================ TURNO 1 =================
+  Aliado: Charizard | HP: 310 | DEF: 210 |
+  Enemigo: Charmander | HP: 100 | DEF: 100 |
+=========================================================
