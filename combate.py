@@ -53,29 +53,33 @@ class Combate:
         self.aliado.solucionar_evolucion()
 
     def turno_aliado(self):
-        print(f"\n+--- Turno Aliado ({self.aliado.get_nombre()}) ---+")
-        print("1. Pasar Turno.\t2. Ataque Normal.")
-        print("3. Ataque Especial.\t4. Huir")
-        opcion_aliado = int(input("Ingrese una opción: "))
+        try: 
+            print(f"\n+--- Turno Aliado ({self.aliado.get_nombre()}) ---+")
+            print("1. Pasar Turno.\t2. Ataque Normal.")
+            print("3. Ataque Especial.\t4. Huir")
+            opcion_aliado = int(input("Ingrese una opción: "))
 
-        self.__registrar(f"\nEl aliado eligió la opción {opcion_aliado}.")
-        if opcion_aliado == 1:
-            self.__registrar("Turno pasado...")
-        elif opcion_aliado == 2:
-            self.__registrar(f"¡{self.aliado.get_nombre()} ha usado ataque normal!")
-            dano = self.aliado.get_ataque()
-            self.enemigo.procesar_dano(dano)
-            self.__registrar(f"Has infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
-        elif opcion_aliado == 3:
-            self.__registrar(f"¡{self.aliado.get_nombre()} ha usado {self.aliado.get_ataque_especial()}!")
-            dano = int(self.aliado.get_ataque() * 1.8)
-            self.enemigo.procesar_dano(dano)
-            self.__registrar(f"Ha infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
-        else:
-            self.__registrar("Has escapado el combate...\n\n")
-            return False
-        sleep(2)
-        return True
+            self.__registrar(f"\nEl aliado eligió la opción {opcion_aliado}.")
+            if opcion_aliado == 1:
+                self.__registrar("Turno pasado...")
+            elif opcion_aliado == 2:
+                self.__registrar(f"¡{self.aliado.get_nombre()} ha usado ataque normal!")
+                dano = self.aliado.get_ataque()
+                self.enemigo.procesar_dano(dano)
+                self.__registrar(f"Has infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
+            elif opcion_aliado == 3:
+                self.__registrar(f"¡{self.aliado.get_nombre()} ha usado {self.aliado.get_ataque_especial()}!")
+                dano = int(self.aliado.get_ataque() * 1.8)
+                self.enemigo.procesar_dano(dano)
+                self.__registrar(f"Ha infligido {dano} pts. de daño a {self.enemigo.get_nombre()}.\n")
+            else:
+                self.__registrar("Has escapado el combate...\n\n")
+                return False
+            sleep(2)
+            return True
+        except ValueError:
+            print("Error: Debe ingresar unicamente valores enteros!")
+
 
 
     def turno_enemigo(self):
