@@ -374,27 +374,27 @@ def ciclo_pruebas_manejo_errores():
                 try:
                     raise ValueError("No se puede convertir texto a entero.")
                 except ValueError as e:
-                    print(f"Se obtuvo el error {e}\n- Se maneja mediante usar un valor por defecto o volviendo a pedir el valor")
+                    print(f"Se obtuvo el error [{type(e).__name__}]: \"{e}\"\n- Se maneja mediante usar un valor por defecto o volviendo a pedir el valor")
             elif opcion == 2:
                 try:
                     raise ZeroDivisionError("No se puede dividir entre 0!")
                 except ZeroDivisionError as e:
-                    print(f"Se obtuvo el error {e}\n- Se maneja devolviendo 0 y continuando.")
+                    print(f"Se obtuvo el error [{type(e).__name__}]: \"{e}\"\n- Se maneja devolviendo 0 y continuando.")
             elif opcion == 3:
                 try:
                     raise AttributeError("No se puede obtener el valor.")
                 except AttributeError as e:
-                    print(f"Se obtuvo el error {e}\n- Se maneja mediante avisando que ese atributo no existe.")
+                    print(f"Se obtuvo el error [{type(e).__name__}]: \"{e}\"\n- Se maneja mediante avisando que ese atributo no existe.")
             elif opcion == 4:
                 try:
                     raise FileNotFoundError("No se puede acceder al archivo.")
                 except FileNotFoundError as e:
-                    print(f"Se obtuvo el error {e}\n- Se maneja mediante la creación de un nuevo archivo.")
+                    print(f"Se obtuvo el error [{type(e).__name__}]: \"{e}\"\n- Se maneja mediante la creación de un nuevo archivo.")
             elif opcion == 5:
                 try:
                     raise sqlite3.OperationalError("No se pudo realizar la acción correspondiente en sqlite3.")
                 except sqlite3.OperationalError as e:
-                    print(f"Se obtuvo el error {e}\n- Se maneja mediante creando una nueva tabla.")
+                    print(f"Se obtuvo el error [{type(e).__name__}]: \"{e}\"\n- Se maneja mediante creando una nueva tabla.")
             else:
                 print("Opcion no valida!")
             enter_para_continuar()
@@ -461,12 +461,10 @@ def Main(bd, partida):
             print("Error: Para ingresar opciones, ingrese solo \nnumeros enteros sin dejar campos vacios")
 
 def enter_para_continuar():
-    print("\nPresiona ENTER para continuar...", end="", flush=True)
-    while True:
-        tecla = msvcrt.getch()
-        if tecla == b'\r':  # b'\r' es el código de la tecla ENTER en Windows
-            print()  # Hace el salto de línea normal al presionar Enter
-            break
+    try:
+        input("\nPresiona ENTER para continuar...")
+    except (KeyboardInterrupt, EOFError):
+        print("\nPrograma interrumpido. Saliendo...")
 
 def elegir_partida(base_datos:BaseDatos):
     while True:
