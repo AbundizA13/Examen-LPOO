@@ -153,6 +153,7 @@ class BaseDatos:
             principal = None
             creados = []
             capturados = []
+            
             #Saca todos los pokemons en la partida
             for fila in cursor.fetchall():
                 rol = fila['rol']
@@ -164,9 +165,11 @@ class BaseDatos:
             if principal is None:
                 raise ValueError("La partida no tiene Pokemon principal.")
             return Partida(id_partida, fila_partida["nombre"], principal, creados, capturados)
+        
         except (sqlite3.Error, ValueError) as e:
             print(f"No se pudo cargar la partida #{id_partida}: {e}")
             return None
+        
         finally:
             conexion.close()
 
