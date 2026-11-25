@@ -16,8 +16,11 @@ class Combate:
     def __registrar(self, texto=""):
         print(texto)
         self.__log.append(texto)
-        with open(self.__archivo_historial, "a", encoding="utf-8") as archivo:
-            archivo.write(texto + "\n")
+        try:
+            with open(self.__archivo_historial, "a", encoding="utf-8") as archivo:
+                archivo.write(texto + "\n")
+        except FileNotFoundError:
+            print(f"Error: no se encontró la carpeta para el archivo '{self.__archivo_historial}'.")
 
     def get_log(self):
         return self.__log
