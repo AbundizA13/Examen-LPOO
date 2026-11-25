@@ -6,6 +6,7 @@ class Combate:
     __turno = 1
     aliado = None
     enemigo = None
+    
 
     def __init__(self, aliado: Pokemon, enemigo: Pokemon):
         self.aliado = aliado
