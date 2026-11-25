@@ -90,7 +90,7 @@ def opcion_2(pokemon:Pokemon):
             enter_para_continuar()
             Limpiar()
 
-def opcion_3(pokemon, enemigos, capturados):
+def opcion_3(pokemon, enemigos, capturados, partida):  # partida: para saber a qué partida pertenece el log
     tamano_enemigos = len(enemigos)
     if tamano_enemigos == 0:
         print("Debes crear enemigos antes de combatir.")
@@ -102,7 +102,7 @@ def opcion_3(pokemon, enemigos, capturados):
     enemigo_pelear = deepcopy(enemigo_actual)
     combate = Combate(pokemon, enemigo_pelear)
     estado_combate = combate.ciclo_combate()
-    if estado_combate:
+    if estado_combate == "VICTORIA":  # ciclo_combate ahora regresa "VICTORIA", "DERROTA" o "HUIDA"
         enemigo_actual.set_atrapado()
         capturados.append(enemigo_actual)
     #Esto lo puedes usar para escribirlo directamente en el .txt, con algunos retoques
@@ -314,7 +314,7 @@ def Main(bd, partida):
             opcion_2(pokemon)
         elif opcion == 3:
             Limpiar()
-            opcion_3(pokemon, enemigos, capturados)
+            opcion_3(pokemon, enemigos, capturados, partida)
         elif opcion == 4:
             Limpiar()
             opcion_4(pokemon, capturados)
