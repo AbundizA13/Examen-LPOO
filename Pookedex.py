@@ -1,3 +1,5 @@
+import sqlite3
+
 from combate import Combate
 from pokemon_manager import *
 from copy import deepcopy
@@ -299,9 +301,7 @@ def Entrenamiento_Personalizado(pokemon):
                 except ValueError:
                     print("Error: Solo puedes ingresar valores enteros sin campos vacios!")   
 
-                except ValueError as error:
-                    print(f"Error: {error}")
-                
+
                 enter_para_continuar()
                 Limpiar()
 
@@ -355,8 +355,55 @@ def Entrenamiento_Personalizado(pokemon):
             print("Error: Debe ingresar unicamente valores enteros!")
 
 def guardar_partida(bd, partida):
-    bd.guardar_partida(partida)
-    print("Partida guardada.")
+    if bd.guardar_partida(partida):
+        print("Partida guardada correctamente!")
+    else:
+        print("No se pudo guardar la partida.")
+
+def ciclo_pruebas_manejo_errores():
+    while True:
+        try:
+            #Menu
+            print("[1] ValueError\n[2] ZeroDivisionError\n[3] AttributeError\n[4] FileNotFoundError\n[5] sqlite3.OperationalError\n[0] Salir")
+            opcion = int(input("Elige una opción: "))
+
+            if opcion == 0:
+                print("Saliendo del menu...")
+                break
+            elif opcion == 1:
+                try:
+                    raise ValueError("No se puede convertir texto a entero.")
+                except ValueError as e:
+                    print(f"Se obtuvo el error {e}\n- Se maneja mediante usar un valor por defecto o volviendo a pedir el valor")
+            elif opcion == 2:
+                try:
+                    raise ZeroDivisionError("No se puede dividir entre 0!")
+                except ZeroDivisionError as e:
+                    print(f"Se obtuvo el error {e}\n- Se maneja devolviendo 0 y continuando.")
+            elif opcion == 3:
+                try:
+                    raise AttributeError("No se puede obtener el valor.")
+                except AttributeError as e:
+                    print(f"Se obtuvo el error {e}\n- Se maneja mediante avisando que ese atributo no existe.")
+            elif opcion == 4:
+                try:
+                    raise FileNotFoundError("No se puede acceder al archivo.")
+                except FileNotFoundError as e:
+                    print(f"Se obtuvo el error {e}\n- Se maneja mediante la creación de un nuevo archivo.")
+            elif opcion == 5:
+                try:
+                    raise sqlite3.OperationalError("No se pudo realizar la acción correspondiente en sqlite3.")
+                except sqlite3.OperationalError as e:
+                    print(f"Se obtuvo el error {e}\n- Se maneja mediante creando una nueva tabla.")
+            else:
+                print("Opcion no valida!")
+            enter_para_continuar()
+            Limpiar()
+
+        except ValueError:
+            print("Error: Debe ingresar unicamente valores enteros!")
+
+
 
 def Main(bd, partida):
     pokemon = partida.get_pkm_principal()
@@ -400,6 +447,9 @@ def Main(bd, partida):
                 Limpiar()
                 guardar_partida(bd, partida)
                 enter_para_continuar()
+            elif opcion == 7:
+                Limpiar()
+                ciclo_pruebas_manejo_errores()
             elif opcion == 0:
                 guardar_partida(bd, partida)
                 break
@@ -446,14 +496,19 @@ def crear_partida_vacia(id_partida:int):
         
     return Partida(id_partida, nombre)
 
+try:
+    bd = BaseDatos()
+    if not bd.iniciar():
+        print("Error cargando la base de datos.")
 
-bd = BaseDatos()
-bd.iniciar()
-partida = elegir_partida(bd)
+    else:
+        partida = elegir_partida(bd)
+        if partida.get_pkm_principal() is None:
+            pokemon_predeterminado = Elegir_Pokemon(partida.get_nombre())
+            partida.set_pkm_principal(pokemon_predeterminado)
+        Main(bd, partida)
+except (KeyboardInterrupt, EOFError):
+    print("\nPrograma interrumpido. Saliendo...")
+except Exception as e:
+    print(f"Ocurrió un error inesperado: {e}")
 
-if partida.get_pkm_principal() is None:
-    pokemon_predeterminado = Elegir_Pokemon(partida.get_nombre())
-    partida.set_pkm_principal(pokemon_predeterminado)
-#Main(pokemon_predeterminado, partida.get_pkm_creados(), partida.get_pkm_capturados())
-Main(bd, partida)
-bd.guardar_partida(partida)

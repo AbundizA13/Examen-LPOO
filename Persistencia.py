@@ -48,8 +48,8 @@ class BaseDatos:
 
 
     def iniciar(self):
-        conexion = self.__conectar()
         try:
+            conexion = self.__conectar()
             cursor = conexion.cursor()
 
 
@@ -73,8 +73,14 @@ class BaseDatos:
             )''')
 
             conexion.commit()
-        finally:
             conexion.close()
+            return True
+        except (sqlite3.Error,OSError) as e:
+            print(f"Se obtuvo un error intentando iniciar la base de datos.")
+            return False
+        finally:
+            if conexion is not None:
+                conexion.close()
 
 
     #A partir de un objeto, lo escribe en la base de datos
