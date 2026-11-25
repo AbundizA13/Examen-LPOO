@@ -422,7 +422,7 @@ def Main(bd, partida):
             print("4. Ver Pokémon atrapados")
             print("5. Crear Pokémon enemigo")
             print("6. Guardar partida.")
-            # print("7. Pruebas de manejo de error")
+            print("7. Pruebas de manejo de error")
             # print("8. Registros de batalla")
             print("0. Salir")
             print("---------------------")
